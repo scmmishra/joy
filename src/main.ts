@@ -1,4 +1,5 @@
-import Button from "./components/Button/Button.vue";
+import UButton from "./components/Base/Button/Button.vue";
+import UIcon from "./components/Base/Icon/Icon.vue";
 import "./tailwind.css";
 
-export { Button };
+export { UButton, UIcon };
