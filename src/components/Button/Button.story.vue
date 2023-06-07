@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import Button from "./Button.vue";
+import type { ButtonProps, ButtonStyles } from "./types";
 
-const state = reactive({
+const state = reactive<ButtonProps>({
   disabled: false,
   text: "Joy Button",
   size: "medium",
@@ -12,7 +13,7 @@ const state = reactive({
   trailingIcon: false,
 });
 
-const styleOptions = [
+const styleOptions: ButtonStyles[] = [
   "primary",
   "secondary",
   "clear",

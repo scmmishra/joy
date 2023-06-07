@@ -1,26 +1,7 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 import { computed } from "vue";
-
-type ButtonSizes = "large" | "medium" | "small";
-type ButtonStyles =
-  | "primary"
-  | "secondary"
-  | "clear"
-  | "warning"
-  | "danger"
-  | "success";
-
-interface ButtonProps {
-  size?: ButtonSizes;
-  style?: ButtonStyles;
-  disabled?: boolean;
-  text?: string;
-  fullWidth?: boolean;
-  loading?: boolean;
-  icon?: string;
-  trailingIcon?: boolean;
-}
+import type { ButtonProps } from "./types";
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: "medium",
