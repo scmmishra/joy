@@ -9,7 +9,7 @@ const state = reactive<ButtonProps>({
   size: "medium",
   fullWidth: false,
   loading: false,
-  icon: "heroicons:check-circle",
+  icon: "Smile",
   trailingIcon: false,
 });
 

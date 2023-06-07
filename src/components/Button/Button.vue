@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Icon } from "@iconify/vue";
+import Icon from "../Icon/Icon.vue";
 import { computed } from "vue";
 import type { ButtonProps } from "./types";
 
@@ -44,12 +44,12 @@ const isLoading = computed(() => props.loading && !props.disabled);
   >
     <Icon
       v-if="isLoading"
-      icon="lucide:loader-2"
+      name="Loader2"
       class="absolute w-4 h-4 animate-spin"
     />
     <Icon
       v-if="icon"
-      :icon="icon"
+      :name="icon"
       class="w-4 h-4"
       :class="{
         invisible: isLoading,
