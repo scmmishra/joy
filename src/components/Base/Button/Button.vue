@@ -28,7 +28,7 @@ const isLoading = computed(() => props.loading && !props.disabled);
         style === 'primary' && !disabled,
       'bg-transparent hover:bg-gray-50 text-gray-800':
         style === 'clear' && !disabled,
-      'bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 shadow-clear-button':
+      'bg-white hover:bg-gray-50 text-gray-800 border border-gray-100 shadow-clear-button':
         style === 'secondary' && !disabled,
       'bg-orange-500 hover:bg-orange-600 text-white':
         style === 'warning' && !disabled,
