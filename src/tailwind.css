@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.heading-1 {
+  @apply text-[2.625rem] leading-[4rem] font-semibold tracking-normal;
+}
+
+.heading-2 {
+  @apply text-[2rem] leading-[3rem] font-semibold tracking-normal;
+}
+
+.heading-3 {
+  @apply text-2xl font-medium leading-8 tracking-normal;
+}
+
+.heading-4 {
+  @apply text-base font-medium leading-6 tracking-normal;
+}
+
+.body-medium {
+  @apply text-sm font-medium leading-6 tracking-normal;
+}
+
+.body-regular {
+  @apply text-sm font-normal leading-6 tracking-normal;
+}
+
+.body-small-medium {
+  @apply text-xs font-medium leading-4 tracking-normal;
+}
+
+.body-small-regular {
+  @apply text-xs font-normal leading-4 tracking-normal;
+}
