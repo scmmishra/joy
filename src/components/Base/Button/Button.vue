@@ -24,16 +24,17 @@ const isLoading = computed(() => props.loading && !props.disabled);
       'px-4 py-3 text-sm leading-6 h-12': size === 'large',
       'px-4 py-2 text-sm leading-6 h-10': size === 'medium',
       'px-3 py-1 text-sm leading-6 h-8': size === 'small',
-      'bg-blue-500 hover:bg-blue-600 text-white':
+      'bg-blue-500 hover:bg-blue-600 active:bg-blue-600 text-white':
         style === 'primary' && !disabled,
-      'bg-transparent hover:bg-gray-50 text-gray-800':
+      'bg-transparent hover:bg-gray-50 active:bg-gray-50 text-gray-800':
         style === 'clear' && !disabled,
-      'bg-white hover:bg-gray-50 text-gray-800 border border-gray-100 shadow-clear-button':
+      'bg-white hover:bg-gray-50 active:bg-gray-50 text-gray-800 border border-gray-100 shadow-clear-button':
         style === 'secondary' && !disabled,
-      'bg-orange-500 hover:bg-orange-600 text-white':
+      'bg-orange-500 hover:bg-orange-600 active:bg-orange-600 text-white':
         style === 'warning' && !disabled,
-      'bg-red-500 hover:bg-red-600 text-white': style === 'danger' && !disabled,
-      'bg-green-500 hover:bg-green-600 text-white':
+      'bg-red-500 hover:bg-red-600 active:bg-red-600 text-white':
+        style === 'danger' && !disabled,
+      'bg-green-500 hover:bg-green-600 active:bg-green-600 text-white':
         style === 'success' && !disabled,
       'bg-gray-100 text-gray-300 cursor-not-allowed': disabled,
       'w-full flex justify-center': fullWidth,
