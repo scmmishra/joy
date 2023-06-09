@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import Button from "./Button.vue";
-import type { ButtonProps, ButtonColors } from "./types";
+import type { ButtonProps, ButtonColors, ButtonVariants } from "./types";
 
 const state = reactive<ButtonProps>({
   disabled: false,
   text: "Joy Button",
+  variant: "faded",
   size: "medium",
   fullWidth: false,
   loading: false,
@@ -22,6 +23,13 @@ const styleOptions: ButtonColors[] = [
   "success",
 ];
 
+const variantOptions: Record<ButtonVariants, string> = {
+  solid: "Solid",
+  outline: "Outline",
+  faded: "Faded",
+  clear: "Clear",
+};
+
 function updateClicked() {
   alert("Clicked");
 }
@@ -32,12 +40,17 @@ function updateClicked() {
     <template #controls>
       <HstSelect
         v-model="state.size"
-        :title="'Size'"
+        title="Size"
         :options="{
           large: 'Large',
           medium: 'Medium',
           small: 'Small',
         }"
+      />
+      <HstSelect
+        v-model="state.variant"
+        title="Variant"
+        :options="variantOptions"
       />
       <HstText v-model="state.text" title="Text" />
       <HstCheckbox v-model="state.disabled" title="Disabled" />
@@ -64,6 +77,7 @@ function updateClicked() {
           :icon="state.icon"
           :trailingIcon="state.trailingIcon"
           :elevated="state.elevated"
+          :variant="state.variant"
           @click="updateClicked"
         >
           {{ state.text }}

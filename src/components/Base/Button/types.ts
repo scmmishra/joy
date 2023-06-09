@@ -6,9 +6,12 @@ export type ButtonColors =
   | "danger"
   | "success";
 
+export type ButtonVariants = "solid" | "faded" | "outline" | "clear";
+
 export interface ButtonProps {
   size?: ButtonSizes;
   color?: ButtonColors;
+  variant?: ButtonVariants;
   disabled?: boolean;
   text?: string;
   fullWidth?: boolean;
