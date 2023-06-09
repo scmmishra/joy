@@ -28,9 +28,9 @@ const extraAvatarCount = computed(() => {
 });
 </script>
 <template>
-  <div class="inline-flex">
+  <div class="inline-flex group">
     <Avatar
-      class="relative -mr-1.5 last:mr-0 ring-2 ring-white group-hover:mr-0"
+      class="relative -mr-2 last:mr-0 transition-[margin] duration-250 ease-in-out ring-2 ring-white group-hover:mr-1"
       v-for="avatar in trimmedAvatars"
       v-bind="avatar"
       :size="size"
@@ -44,7 +44,7 @@ const extraAvatarCount = computed(() => {
       v-if="extraAvatarCount"
       :size="size"
       :squared="squared"
-      class="relative grid text-xs font-medium text-blue-500 bg-blue-100 place-content-center -mr-1.5 last:mr-0 ring-white"
+      class="relative grid text-xs font-medium text-blue-500 bg-blue-100 place-content-center -mr-2 last:mr-0 transition-[margin] group-hover:mr-1 duration-250 ease-in-out ring-white"
       :class="{
         'ring-2': ['small', 'tiny'].includes(size),
         'ring-4': ['medium', 'large'].includes(size),
