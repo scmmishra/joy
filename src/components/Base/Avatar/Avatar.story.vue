@@ -15,7 +15,7 @@ const state = reactive<AvatarProps & { toggleImage: boolean }>({
 
 <template>
   <Story title="Base Components/Avatar" :layout="{ type: 'grid', width: 300 }">
-    <Variant title="Base Avatar" autoPropsDisabled>
+    <Variant title="Base" autoPropsDisabled>
       <template #controls>
         <HstSelect
           v-model="state.size"

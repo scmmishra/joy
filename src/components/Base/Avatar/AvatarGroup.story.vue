@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import AvatarGroup from "./AvatarGroup.vue";
 import { AvatarGroupProps } from "./types";
 
 const state = reactive<AvatarGroupProps>({
   avatars: [
     {
-      src: "broken-image",
-      name: "Alice Jones",
+      src: "https://randomuser.me/api/portraits/women/51.jpg",
+      name: "New Avatar 1",
     },
     {
-      src: "broken-image-2",
-      name: "Patrick",
+      src: "https://randomuser.me/api/portraits/women/52.jpg",
+      name: "New Avatar 2",
     },
     {
-      src: "broken-image-3",
-      name: "Olivia",
+      src: "https://randomuser.me/api/portraits/women/53.jpg",
+      name: "New Avatar 3",
     },
     {
-      src: "broken-image-4",
-      name: "Anna",
+      src: "https://randomuser.me/api/portraits/women/54.jpg",
+      name: "New Avatar 4",
     },
   ],
   size: "medium",
@@ -30,10 +30,21 @@ const state = reactive<AvatarGroupProps>({
 
 function addAvatar() {
   state.avatars.push({
-    src: `broken-image-${state.avatars.length + 1}`,
+    src: `https://randomuser.me/api/portraits/women/${
+      50 + state.avatars.length + 1
+    }.jpg`,
     name: `New Avatar ${state.avatars.length + 1}`,
   });
 }
+
+const avatarWithBrokenImages = computed(() => {
+  return state.avatars.map((avatar) => {
+    return {
+      src: "broken",
+      name: avatar.name,
+    };
+  });
+});
 
 function removeAvatar() {
   state.avatars.pop();
@@ -41,8 +52,11 @@ function removeAvatar() {
 </script>
 
 <template>
-  <Story title="Base Components/Avatar Group">
-    <Variant title="Avatar Group" autoPropsDisabled>
+  <Story
+    title="Base Components/Avatar Group"
+    :layout="{ type: 'grid', width: 500 }"
+  >
+    <Variant title="Default" autoPropsDisabled>
       <template #controls>
         <HstSelect
           v-model="state.size"
@@ -55,7 +69,6 @@ function removeAvatar() {
           }"
         />
         <HstCheckbox v-model="state.squared" title="Squared" />
-        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
         <HstNumber v-model="state.max" title="Max avatars" />
         <div class="htw-flex htw-flex-col htw-gap-1 htw-p-2">
           <HstButton class="w-full htw-p-2" @click="addAvatar">
@@ -66,7 +79,76 @@ function removeAvatar() {
           </HstButton>
         </div>
       </template>
-      <AvatarGroup v-bind="state" />
+      <AvatarGroup
+        :avatars="state.avatars"
+        :size="state.size"
+        :max="state.max"
+        :squared="state.squared"
+      />
+    </Variant>
+
+    <Variant title="With Fallback" autoPropsDisabled>
+      <template #controls>
+        <HstSelect
+          v-model="state.size"
+          :title="'Size'"
+          :options="{
+            large: 'Large',
+            medium: 'Medium',
+            small: 'Small',
+            tiny: 'Tiny',
+          }"
+        />
+        <HstCheckbox v-model="state.squared" title="Squared" />
+        <HstNumber v-model="state.max" title="Max avatars" />
+        <div class="htw-flex htw-flex-col htw-gap-1 htw-p-2">
+          <HstButton class="w-full htw-p-2" @click="addAvatar">
+            Add Avatar
+          </HstButton>
+          <HstButton class="w-full htw-p-2" @click="removeAvatar">
+            Remove Avatar
+          </HstButton>
+        </div>
+      </template>
+      <AvatarGroup
+        :avatars="avatarWithBrokenImages"
+        :size="state.size"
+        :max="state.max"
+        :squared="state.squared"
+        :useFallbackImage="true"
+      />
+    </Variant>
+
+    <Variant title="With Initials" autoPropsDisabled>
+      <template #controls>
+        <HstSelect
+          v-model="state.size"
+          :title="'Size'"
+          :options="{
+            large: 'Large',
+            medium: 'Medium',
+            small: 'Small',
+            tiny: 'Tiny',
+          }"
+        />
+        <HstCheckbox v-model="state.squared" title="Squared" />
+        <HstNumber v-model="state.max" title="Max avatars" />
+        <div class="htw-flex htw-flex-col htw-gap-1 htw-p-2">
+          <HstButton class="w-full htw-p-2" @click="addAvatar">
+            Add Avatar
+          </HstButton>
+          <HstButton class="w-full htw-p-2" @click="removeAvatar">
+            Remove Avatar
+          </HstButton>
+        </div>
+      </template>
+      <AvatarGroup
+        :avatars="avatarWithBrokenImages"
+        :size="state.size"
+        :max="state.max"
+        :squared="state.squared"
+        :useFallbackImage="false"
+      />
     </Variant>
   </Story>
 </template>
