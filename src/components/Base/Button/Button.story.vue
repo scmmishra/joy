@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import Button from "./Button.vue";
-import type { ButtonProps, ButtonStyles } from "./types";
+import type { ButtonProps, ButtonColors } from "./types";
 
 const state = reactive<ButtonProps>({
   disabled: false,
@@ -11,12 +11,12 @@ const state = reactive<ButtonProps>({
   loading: false,
   icon: "Smile",
   trailingIcon: false,
+  elevated: false,
 });
 
-const styleOptions: ButtonStyles[] = [
+const styleOptions: ButtonColors[] = [
   "primary",
   "secondary",
-  "clear",
   "warning",
   "danger",
   "success",
@@ -28,7 +28,7 @@ function updateClicked() {
 </script>
 
 <template>
-  <Story title="Base Components/Button" :layout="{ type: 'grid', width: 400 }">
+  <Story title="Base Components/Button" :layout="{ type: 'grid', width: 300 }">
     <template #controls>
       <HstSelect
         v-model="state.size"
@@ -43,6 +43,7 @@ function updateClicked() {
       <HstCheckbox v-model="state.disabled" title="Disabled" />
       <HstCheckbox v-model="state.fullWidth" title="Full Width" />
       <HstCheckbox v-model="state.loading" title="Loading" />
+      <HstCheckbox v-model="state.elevated" title="Elevated" />
       <div>
         <h5 class="px-2 mt-5 text-xs tracking-widest text-gray-300 uppercase">
           Icon Options
@@ -56,12 +57,13 @@ function updateClicked() {
       <div class="flex items-center justify-center p-5">
         <Button
           :size="state.size"
-          :style="style"
+          :color="style"
           :disabled="state.disabled"
           :fullWidth="state.fullWidth"
           :loading="state.loading"
           :icon="state.icon"
           :trailingIcon="state.trailingIcon"
+          :elevated="state.elevated"
           @click="updateClicked"
         >
           {{ state.text }}

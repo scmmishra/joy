@@ -5,13 +5,14 @@ import type { ButtonProps } from "./types";
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: "medium",
-  style: "primary",
+  color: "primary",
   disabled: false,
   text: "Button",
   fullWidth: false,
   loading: false,
   trailingIcon: false,
   icon: "",
+  elevated: false,
 });
 
 const isLoading = computed(() => props.loading && !props.disabled);
@@ -25,20 +26,19 @@ const isLoading = computed(() => props.loading && !props.disabled);
       'px-4 py-2 text-sm leading-6 h-10': size === 'medium',
       'px-3 py-1 text-sm leading-6 h-8': size === 'small',
       'bg-blue-500 hover:bg-blue-600 active:bg-blue-600 text-white':
-        style === 'primary' && !disabled,
-      'bg-transparent hover:bg-gray-50 active:bg-gray-50 text-gray-800':
-        style === 'clear' && !disabled,
-      'bg-white hover:bg-gray-50 active:bg-gray-50 text-gray-800 border border-gray-100 shadow-clear-button':
-        style === 'secondary' && !disabled,
+        color === 'primary' && !disabled,
+      'bg-white hover:bg-gray-50 active:bg-gray-50 text-gray-800 border border-gray-100':
+        color === 'secondary' && !disabled,
       'bg-orange-500 hover:bg-orange-600 active:bg-orange-600 text-white':
-        style === 'warning' && !disabled,
+        color === 'warning' && !disabled,
       'bg-red-500 hover:bg-red-600 active:bg-red-600 text-white':
-        style === 'danger' && !disabled,
+        color === 'danger' && !disabled,
       'bg-green-500 hover:bg-green-600 active:bg-green-600 text-white':
-        style === 'success' && !disabled,
+        color === 'success' && !disabled,
       'bg-gray-100 text-gray-300 cursor-not-allowed': disabled,
       'w-full flex justify-center': fullWidth,
       'flex-row-reverse': trailingIcon && icon,
+      'shadow-clear-button': elevated,
       relative: isLoading,
     }"
     :aria-label="text"

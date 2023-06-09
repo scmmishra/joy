@@ -1,19 +1,19 @@
 export type ButtonSizes = "large" | "medium" | "small";
-export type ButtonStyles =
+export type ButtonColors =
   | "primary"
   | "secondary"
-  | "clear"
   | "warning"
   | "danger"
   | "success";
 
 export interface ButtonProps {
   size?: ButtonSizes;
-  style?: ButtonStyles;
+  color?: ButtonColors;
   disabled?: boolean;
   text?: string;
   fullWidth?: boolean;
   loading?: boolean;
   icon?: string;
   trailingIcon?: boolean;
+  elevated?: boolean;
 }
