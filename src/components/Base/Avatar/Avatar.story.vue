@@ -3,34 +3,22 @@ import { reactive } from "vue";
 import Avatar from "./Avatar.vue";
 import { AvatarProps } from "./types";
 
-const base = {
+const state = reactive<AvatarProps & { toggleImage: boolean }>({
   src: "https://randomuser.me/api/portraits/women/59.jpg",
   name: "Alice Jones",
   size: "medium",
   squared: false,
   useFallbackImage: true,
   toggleImage: true,
-};
-
-const defaultState = reactive<AvatarProps & { toggleImage: boolean }>(
-  JSON.parse(JSON.stringify(base))
-);
-
-const withFallbackImage = reactive<AvatarProps & { toggleImage: boolean }>(
-  JSON.parse(JSON.stringify(base))
-);
-
-const withInitials = reactive<AvatarProps & { toggleImage: boolean }>(
-  JSON.parse(JSON.stringify(base))
-);
+});
 </script>
 
 <template>
-  <Story title="Base Components/Avatar">
+  <Story title="Base Components/Avatar" :layout="{ type: 'grid', width: 300 }">
     <Variant title="Base Avatar" autoPropsDisabled>
       <template #controls>
         <HstSelect
-          v-model="defaultState.size"
+          v-model="state.size"
           :title="'Size'"
           :options="{
             large: 'Large',
@@ -39,28 +27,25 @@ const withInitials = reactive<AvatarProps & { toggleImage: boolean }>(
             tiny: 'Tiny',
           }"
         />
-        <HstText v-model="defaultState.src" title="Text" />
-        <HstText v-model="defaultState.name" title="Name" />
-        <HstCheckbox v-model="defaultState.squared" title="Squared" />
-        <HstCheckbox
-          v-model="defaultState.useFallbackImage"
-          title="Fallback Image"
-        />
-        <HstCheckbox v-model="defaultState.toggleImage" title="Toggle Image" />
+        <HstText v-model="state.src" title="Text" />
+        <HstText v-model="state.name" title="Name" />
+        <HstCheckbox v-model="state.squared" title="Squared" />
+        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
+        <HstCheckbox v-model="state.toggleImage" title="Toggle Image" />
       </template>
 
       <Avatar
-        :src="defaultState.toggleImage ? defaultState.src : ''"
-        :name="defaultState.name"
-        :size="defaultState.size"
-        :squared="defaultState.squared"
-        :useFallbackImage="defaultState.useFallbackImage"
+        :src="state.toggleImage ? state.src : ''"
+        :name="state.name"
+        :size="state.size"
+        :squared="state.squared"
+        :useFallbackImage="state.useFallbackImage"
       />
     </Variant>
     <Variant title="With Fallback Image" autoPropsDisabled>
       <template #controls>
         <HstSelect
-          v-model="withFallbackImage.size"
+          v-model="state.size"
           :title="'Size'"
           :options="{
             large: 'Large',
@@ -69,21 +54,21 @@ const withInitials = reactive<AvatarProps & { toggleImage: boolean }>(
             tiny: 'Tiny',
           }"
         />
-        <HstText v-model="withFallbackImage.name" title="Name" />
-        <HstCheckbox v-model="withFallbackImage.squared" title="Squared" />
+        <HstText v-model="state.name" title="Name" />
+        <HstCheckbox v-model="state.squared" title="Squared" />
       </template>
       <Avatar
         :src="'broken-image'"
-        :name="withFallbackImage.name"
-        :size="withFallbackImage.size"
-        :squared="withFallbackImage.squared"
-        :useFallbackImage="withFallbackImage.useFallbackImage"
+        :name="state.name"
+        :size="state.size"
+        :squared="state.squared"
+        :useFallbackImage="state.useFallbackImage"
       />
     </Variant>
     <Variant title="With Initials" autoPropsDisabled>
       <template #controls>
         <HstSelect
-          v-model="withInitials.size"
+          v-model="state.size"
           :title="'Size'"
           :options="{
             large: 'Large',
@@ -92,14 +77,14 @@ const withInitials = reactive<AvatarProps & { toggleImage: boolean }>(
             tiny: 'Tiny',
           }"
         />
-        <HstText v-model="withInitials.name" title="Name" />
-        <HstCheckbox v-model="withInitials.squared" title="Squared" />
+        <HstText v-model="state.name" title="Name" />
+        <HstCheckbox v-model="state.squared" title="Squared" />
       </template>
       <Avatar
         :src="'broken-image'"
-        :name="withInitials.name"
-        :size="withInitials.size"
-        :squared="withInitials.squared"
+        :name="state.name"
+        :size="state.size"
+        :squared="state.squared"
         :useFallbackImage="false"
       />
     </Variant>
