@@ -36,6 +36,7 @@ const extraAvatarCount = computed(() => {
       v-bind="avatar"
       :size="size"
       :squared="squared"
+      :useFallbackImage="useFallbackImage"
       :class="{
         'ring-2 group-hover:mr-1 -mr-2': ['small', 'tiny'].includes(size),
         'ring-4 group-hover:mr-2 -mr-4': ['medium', 'large'].includes(size),
@@ -45,6 +46,7 @@ const extraAvatarCount = computed(() => {
       v-if="extraAvatarCount"
       :size="size"
       :squared="squared"
+      :useFallbackImage="useFallbackImage"
       class="relative last:mr-0 transition-[margin] duration-250 ease-in-out ring-white"
       :class="{
         'ring-2 group-hover:mr-1 -mr-2': ['small', 'tiny'].includes(size),
