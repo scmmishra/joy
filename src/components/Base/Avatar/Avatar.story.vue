@@ -1,61 +1,36 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import Avatar from "./Avatar.vue";
-import AvatarGroup from "./AvatarGroup.vue";
-import { AvatarGroupProps, AvatarProps } from "./types";
+import { AvatarProps } from "./types";
 
-const state = reactive<AvatarProps & { toggleImage: boolean }>({
+const base = {
   src: "https://randomuser.me/api/portraits/women/59.jpg",
   name: "Alice Jones",
   size: "medium",
   squared: false,
   useFallbackImage: true,
   toggleImage: true,
-});
+};
 
-const groupState = reactive<AvatarGroupProps>({
-  avatars: [
-    {
-      src: "broken-image",
-      name: "Alice Jones",
-    },
-    {
-      src: "broken-image-2",
-      name: "Patrick",
-    },
-    {
-      src: "broken-image-3",
-      name: "Olivia",
-    },
-    {
-      src: "broken-image-4",
-      name: "Anna",
-    },
-  ],
-  size: "medium",
-  squared: false,
-  useFallbackImage: true,
-  max: 6,
-});
+const defaultState = reactive<AvatarProps & { toggleImage: boolean }>(
+  JSON.parse(JSON.stringify(base))
+);
 
-function addAvatar() {
-  groupState.avatars.push({
-    src: `broken-image-${groupState.avatars.length + 1}`,
-    name: `New Avatar ${groupState.avatars.length + 1}`,
-  });
-}
+const withFallbackImage = reactive<AvatarProps & { toggleImage: boolean }>(
+  JSON.parse(JSON.stringify(base))
+);
 
-function removeAvatar() {
-  groupState.avatars.pop();
-}
+const withInitials = reactive<AvatarProps & { toggleImage: boolean }>(
+  JSON.parse(JSON.stringify(base))
+);
 </script>
 
 <template>
   <Story title="Base Components/Avatar">
-    <Variant title="Single Avatar" autoPropsDisabled>
+    <Variant title="Base Avatar" autoPropsDisabled>
       <template #controls>
         <HstSelect
-          v-model="state.size"
+          v-model="defaultState.size"
           :title="'Size'"
           :options="{
             large: 'Large',
@@ -64,26 +39,28 @@ function removeAvatar() {
             tiny: 'Tiny',
           }"
         />
-        <HstText v-model="state.src" title="Text" />
-        <HstText v-model="state.name" title="Name" />
-        <HstCheckbox v-model="state.squared" title="Squared" />
-        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
-        <HstCheckbox v-model="state.toggleImage" title="Toggle Image" />
+        <HstText v-model="defaultState.src" title="Text" />
+        <HstText v-model="defaultState.name" title="Name" />
+        <HstCheckbox v-model="defaultState.squared" title="Squared" />
+        <HstCheckbox
+          v-model="defaultState.useFallbackImage"
+          title="Fallback Image"
+        />
+        <HstCheckbox v-model="defaultState.toggleImage" title="Toggle Image" />
       </template>
 
       <Avatar
-        :src="state.toggleImage ? state.src : ''"
-        :name="state.name"
-        :size="state.size"
-        :squared="state.squared"
-        :useFallbackImage="state.useFallbackImage"
+        :src="defaultState.toggleImage ? defaultState.src : ''"
+        :name="defaultState.name"
+        :size="defaultState.size"
+        :squared="defaultState.squared"
+        :useFallbackImage="defaultState.useFallbackImage"
       />
     </Variant>
-
-    <Variant title="Avatar Group" autoPropsDisabled>
+    <Variant title="With Fallback Image" autoPropsDisabled>
       <template #controls>
         <HstSelect
-          v-model="groupState.size"
+          v-model="withFallbackImage.size"
           :title="'Size'"
           :options="{
             large: 'Large',
@@ -92,19 +69,39 @@ function removeAvatar() {
             tiny: 'Tiny',
           }"
         />
-        <HstCheckbox v-model="groupState.squared" title="Squared" />
-        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
-        <HstNumber v-model="groupState.max" title="Max avatars" />
-        <div class="htw-flex htw-flex-col htw-gap-1 htw-p-2">
-          <HstButton class="w-full htw-p-2" @click="addAvatar">
-            Add Avatar
-          </HstButton>
-          <HstButton class="w-full htw-p-2" @click="removeAvatar">
-            Remove Avatar
-          </HstButton>
-        </div>
+        <HstText v-model="withFallbackImage.name" title="Name" />
+        <HstCheckbox v-model="withFallbackImage.squared" title="Squared" />
       </template>
-      <AvatarGroup v-bind="groupState" />
+      <Avatar
+        :src="'broken-image'"
+        :name="withFallbackImage.name"
+        :size="withFallbackImage.size"
+        :squared="withFallbackImage.squared"
+        :useFallbackImage="withFallbackImage.useFallbackImage"
+      />
+    </Variant>
+    <Variant title="With Initials" autoPropsDisabled>
+      <template #controls>
+        <HstSelect
+          v-model="withInitials.size"
+          :title="'Size'"
+          :options="{
+            large: 'Large',
+            medium: 'Medium',
+            small: 'Small',
+            tiny: 'Tiny',
+          }"
+        />
+        <HstText v-model="withInitials.name" title="Name" />
+        <HstCheckbox v-model="withInitials.squared" title="Squared" />
+      </template>
+      <Avatar
+        :src="'broken-image'"
+        :name="withInitials.name"
+        :size="withInitials.size"
+        :squared="withInitials.squared"
+        :useFallbackImage="false"
+      />
     </Variant>
   </Story>
 </template>
