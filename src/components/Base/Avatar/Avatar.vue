@@ -2,6 +2,7 @@
 import { computed, ref, watch } from "vue";
 import type { AvatarProps, AvatarSizes } from "./types";
 import FallbackAvatar from "./FallbackAvatar.vue";
+import AvatarContainer from "./AvatarContainer.vue";
 
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: "medium",
@@ -31,20 +32,10 @@ watch(
 </script>
 
 <template>
-  <div
-    role="img"
+  <AvatarContainer
     :aria-label="`Avatar for ${name}`"
-    class="object-cover overflow-hidden bg-gray-100"
-    :class="{
-      'w-16 h-16': size === 'large',
-      'w-12 h-12': size === 'medium',
-      'w-8 h-8': size === 'small',
-      'w-6 h-6': size === 'tiny',
-      'rounded-full': !squared,
-      'rounded-xl': squared && size === 'large',
-      'rounded-lg': squared && ['medium', 'small'].includes(size),
-      'rounded-md': squared && size === 'tiny',
-    }"
+    :size="size"
+    :squared="squared"
   >
     <img
       v-if="src && isImageValid"
@@ -53,5 +44,5 @@ watch(
       @error="invalidateCurrentImage"
     />
     <FallbackAvatar v-else :size="fallbackSize" :name="name" />
-  </div>
+  </AvatarContainer>
 </template>
