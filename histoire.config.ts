@@ -9,6 +9,7 @@ export default defineConfig({
   theme: {
     title: "Joy Design System.",
     defaultColorScheme: "light",
+    favicon: "./public/joy.png",
     colors: {
       primary: defaultColors.blue,
     },
