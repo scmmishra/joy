@@ -9,6 +9,7 @@ const state = reactive<AvatarProps & { toggleImage: boolean }>({
   name: "Alice Jones",
   size: "medium",
   squared: false,
+  useFallbackImage: true,
   toggleImage: true,
 });
 
@@ -33,6 +34,7 @@ const groupState = reactive<AvatarGroupProps>({
   ],
   size: "medium",
   squared: false,
+  useFallbackImage: true,
   max: 6,
 });
 
@@ -65,6 +67,7 @@ function removeAvatar() {
         <HstText v-model="state.src" title="Text" />
         <HstText v-model="state.name" title="Name" />
         <HstCheckbox v-model="state.squared" title="Squared" />
+        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
         <HstCheckbox v-model="state.toggleImage" title="Toggle Image" />
       </template>
 
@@ -73,6 +76,7 @@ function removeAvatar() {
         :name="state.name"
         :size="state.size"
         :squared="state.squared"
+        :useFallbackImage="state.useFallbackImage"
       />
     </Variant>
 
@@ -89,6 +93,7 @@ function removeAvatar() {
           }"
         />
         <HstCheckbox v-model="groupState.squared" title="Squared" />
+        <HstCheckbox v-model="state.useFallbackImage" title="Fallback Image" />
         <HstNumber v-model="groupState.max" title="Max avatars" />
         <div class="htw-flex htw-flex-col htw-gap-1 htw-p-2">
           <HstButton class="w-full htw-p-2" @click="addAvatar">
@@ -99,12 +104,7 @@ function removeAvatar() {
           </HstButton>
         </div>
       </template>
-      <AvatarGroup
-        :avatars="groupState.avatars"
-        :size="groupState.size"
-        :squared="groupState.squared"
-        :max="groupState.max"
-      />
+      <AvatarGroup v-bind="groupState" />
     </Variant>
   </Story>
 </template>

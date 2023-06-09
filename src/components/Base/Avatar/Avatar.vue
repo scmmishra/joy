@@ -7,6 +7,7 @@ import AvatarContainer from "./AvatarContainer.vue";
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: "medium",
   squared: false,
+  useFallbackImage: false,
 });
 
 const sizeMap: Record<AvatarSizes, number> = {
@@ -22,6 +23,20 @@ const isImageValid = ref(true);
 function invalidateCurrentImage() {
   isImageValid.value = false;
 }
+
+const initials = computed(() => {
+  const splitNames = props.name.split(" ");
+
+  if (splitNames.length > 1) {
+    const firstName = splitNames[0];
+    const lastName = splitNames[splitNames.length - 1];
+
+    return firstName[0] + lastName[0];
+  }
+
+  const firstName = splitNames[0];
+  return firstName[0];
+});
 
 watch(
   () => props.src,
@@ -43,6 +58,13 @@ watch(
       :alt="name"
       @error="invalidateCurrentImage"
     />
-    <FallbackAvatar v-else :size="fallbackSize" :name="name" />
+    <FallbackAvatar
+      v-else-if="useFallbackImage"
+      :size="fallbackSize"
+      :name="name"
+    />
+    <span v-else>
+      {{ initials }}
+    </span>
   </AvatarContainer>
 </template>

@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<AvatarGroupProps>(), {
   size: "medium",
   squared: false,
   max: 3,
+  useFallbackImage: false,
 });
 
 const trimmedAvatars = computed(() => {
@@ -44,7 +45,7 @@ const extraAvatarCount = computed(() => {
       v-if="extraAvatarCount"
       :size="size"
       :squared="squared"
-      class="relative grid text-xs font-medium text-blue-500 bg-blue-100 place-content-center last:mr-0 transition-[margin] duration-250 ease-in-out ring-white"
+      class="relative last:mr-0 transition-[margin] duration-250 ease-in-out ring-white"
       :class="{
         'ring-2 group-hover:mr-1 -mr-2': ['small', 'tiny'].includes(size),
         'ring-4 group-hover:mr-2 -mr-4': ['medium', 'large'].includes(size),

@@ -8,6 +8,7 @@ export interface BaseAvatarProps {
 export interface AvatarProps extends BaseAvatarProps {
   size?: AvatarSizes;
   squared?: boolean;
+  useFallbackImage?: boolean;
 }
 
 export interface AvatarGroupProps {
@@ -15,4 +16,5 @@ export interface AvatarGroupProps {
   size?: AvatarSizes;
   squared?: boolean;
   max?: number;
+  useFallbackImage?: boolean;
 }
