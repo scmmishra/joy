@@ -14,8 +14,8 @@ import {
 import { BadgeContainerProps } from "./types";
 
 const state = reactive<BadgeProps>({
-  color: "primary",
-  text: "12",
+  color: "danger",
+  text: "",
   variant: "solid",
   size: "x-small",
   rounded: false,
@@ -23,7 +23,7 @@ const state = reactive<BadgeProps>({
 });
 
 const containerState = reactive<BadgeContainerProps>({
-  position: "top-right",
+  position: "bottom-right",
 });
 
 const colorOptions: BadgeColors[] = [
