@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<BadgeContainerProps>(), {
 watch(props, setBadgePosition);
 
 function setBadgePosition() {
-  console.log("WATCH");
   if (!badgeEl.value) return;
   const badge = badgeEl.value;
 
