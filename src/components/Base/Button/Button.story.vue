@@ -6,7 +6,7 @@ import type { ButtonProps, ButtonColors, ButtonVariants } from "./types";
 const state = reactive<ButtonProps>({
   disabled: false,
   text: "Joy Button",
-  variant: "faded",
+  variant: "solid",
   size: "medium",
   fullWidth: false,
   loading: false,
