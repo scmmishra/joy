@@ -23,9 +23,10 @@ const classesToApply = computed(() => {
   <span
     class="inline-flex items-center justify-center"
     :class="{
-      'px-2 py-0.5 text-sm leading-6 gap-1.5': size === 'medium',
-      'px-1.5 text-xs leading-6 gap-1.5': size === 'small',
-      'px-1 text-[10px] leading-5 gap-1': size === 'x-small',
+      'px-2 py-0.5 text-sm leading-6 gap-1.5 h-7 min-w-[1.75rem]':
+        size === 'medium',
+      'px-1.5 text-xs leading-6 gap-1.5 h-6 min-w-[1.5rem]': size === 'small',
+      'px-1 text-[10px] leading-4 gap-1 h-4 min-w-[1rem]': size === 'x-small',
       'rounded-lg': !rounded && ['medium'].includes(size),
       'rounded-md': !rounded && ['small', 'x-small'].includes(size),
       'rounded-full': rounded,
