@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import type { BadgeProps } from "./types";
 import useColors from "../../../composables/useColors";
+import { useBadgeContainer } from "./provider";
 
 const props = withDefaults(defineProps<BadgeProps>(), {
   size: "medium",
@@ -10,6 +11,32 @@ const props = withDefaults(defineProps<BadgeProps>(), {
   text: "",
   rounded: false,
 });
+
+let internalBadgeRef = ref<HTMLElement | null>(null);
+
+const { registerBadge } = useBadgeContainer();
+
+onMounted(() => {
+  registerBadge(internalBadgeRef);
+});
+
+watch(
+  () => props.size,
+  () => registerBadge(internalBadgeRef),
+  { immediate: true }
+);
+
+watch(
+  () => props.text,
+  () => registerBadge(internalBadgeRef),
+  { immediate: true }
+);
+
+watch(
+  () => props.rounded,
+  () => registerBadge(internalBadgeRef),
+  { immediate: true }
+);
 
 const classesToApply = computed(() => {
   return useColors({
@@ -21,6 +48,7 @@ const classesToApply = computed(() => {
 
 <template>
   <span
+    ref="internalBadgeRef"
     class="inline-flex items-center justify-center"
     :class="{
       'px-2 py-0.5 text-sm leading-6 gap-1.5 h-7 min-w-[1.75rem]':
@@ -34,7 +62,7 @@ const classesToApply = computed(() => {
     }"
     :aria-label="text"
   >
-    <Icon
+    <span
       v-if="dot"
       class="bg-current rounded-full opacity-80"
       :class="{
