@@ -1,3 +1,5 @@
+import { IconOptions } from "../Icon/types";
+
 export type ButtonSizes = "large" | "medium" | "small";
 export type ButtonColors =
   | "primary"
@@ -16,7 +18,7 @@ export interface ButtonProps {
   text?: string;
   fullWidth?: boolean;
   loading?: boolean;
-  icon?: string;
+  icon?: IconOptions;
   trailingIcon?: boolean;
   elevated?: boolean;
 }
