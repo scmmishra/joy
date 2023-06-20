@@ -1,14 +1,10 @@
+import { UIColors, UIVariants } from "../../colors";
 import { IconOptions } from "../Icon/types";
 
 export type ButtonSizes = "large" | "medium" | "small";
-export type ButtonColors =
-  | "primary"
-  | "secondary"
-  | "warning"
-  | "danger"
-  | "success";
+export type ButtonColors = UIColors;
 
-export type ButtonVariants = "solid" | "faded" | "outline" | "clear";
+export type ButtonVariants = UIVariants;
 
 export interface ButtonProps {
   size?: ButtonSizes;
