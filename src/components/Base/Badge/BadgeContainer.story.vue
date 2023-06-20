@@ -15,7 +15,7 @@ import { BadgeContainerProps } from "./types";
 
 const state = reactive<BadgeProps>({
   color: "danger",
-  text: "",
+  text: "inactive",
   variant: "solid",
   size: "x-small",
   rounded: false,
