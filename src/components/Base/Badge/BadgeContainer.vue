@@ -54,10 +54,10 @@ function setBadgePosition() {
       setPosition({ top: -xPos, left: -yPos });
       break;
     case "bottom-right":
-      setPosition({ bottom: xPos, right: -yPos });
+      setPosition({ bottom: -xPos, right: -yPos });
       break;
     case "bottom-left":
-      setPosition({ bottom: xPos, left: -yPos });
+      setPosition({ bottom: -xPos, left: -yPos });
       break;
   }
 }

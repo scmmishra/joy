@@ -27,7 +27,7 @@ const variantOptions: Record<BadgeVariants, string> = {
 </script>
 
 <template>
-  <Story title="Base Components/Badge">
+  <Story title="Base Components/Badge" :layout="{ type: 'grid', width: 300 }">
     <template #controls>
       <HstSelect
         v-model="state.size"

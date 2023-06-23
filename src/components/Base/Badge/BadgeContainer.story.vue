@@ -2,6 +2,7 @@
 import { reactive } from "vue";
 
 import Badge from "./Badge.vue";
+import Button from "../Button/Button.vue";
 import BadgeContainer from "./BadgeContainer.vue";
 import Avatar from "../Avatar/Avatar.vue";
 
@@ -76,19 +77,45 @@ const positionOptions: BadgeContainerPositions[] = [
       <HstCheckbox v-model="state.rounded" title="Rounded" />
       <HstCheckbox v-model="state.dot" title="Has Dot" />
     </template>
-    <section class="p-12" autoPropsDisabled>
-      <BadgeContainer :position="containerState.position">
-        <Badge v-bind="state">
-          {{ state.text }}
-        </Badge>
-        <Avatar
-          src=""
-          :name="'Alice Jones'"
-          :size="'medium'"
-          :squared="false"
-          :useFallbackImage="true"
-        />
-      </BadgeContainer>
-    </section>
+
+    <Variant title="With Avatar">
+      <section class="p-12" autoPropsDisabled>
+        <BadgeContainer :position="containerState.position">
+          <Badge v-bind="state">
+            {{ state.text }}
+          </Badge>
+          <Avatar
+            src=""
+            :name="'Alice Jones'"
+            :size="'medium'"
+            :squared="false"
+            :useFallbackImage="true"
+          />
+        </BadgeContainer>
+      </section>
+    </Variant>
+
+    <Variant title="With Button">
+      <section class="p-12" autoPropsDisabled>
+        <BadgeContainer :position="containerState.position">
+          <Badge v-bind="state">
+            {{ state.text }}
+          </Badge>
+          <Button
+            :size="'medium'"
+            :color="'primary'"
+            :disabled="false"
+            :fullWidth="false"
+            :loading="false"
+            :icon="'Smile'"
+            :trailingIcon="false"
+            :elevated="false"
+            :variant="'solid'"
+          >
+            Joy Button
+          </Button>
+        </BadgeContainer>
+      </section>
+    </Variant>
   </Story>
 </template>
