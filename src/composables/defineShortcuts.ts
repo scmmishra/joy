@@ -105,7 +105,6 @@ export const defineShortcuts = (
       }
     } else {
       // no meta key should be accepted
-      console.log(e.metaKey, e.ctrlKey, e.altKey, e.shiftKey);
       if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
       if (e.key === _combination.key) {
         handler(e);
