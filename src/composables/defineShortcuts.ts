@@ -88,7 +88,6 @@ export const defineShortcuts = (
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (!e.key) return;
-    console.log(e.key.toLowerCase());
 
     if (!_combination.modifier && usingInput.value) {
       // disable shortcuts when input is focused
