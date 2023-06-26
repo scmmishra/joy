@@ -17,7 +17,8 @@
     "story:preview": "histoire preview"
   },
   "dependencies": {
-    "lucide-vue-next": "^0.241.0",
+    "@vueuse/core": "^10.2.0",
+    "lucide-vue-next": "^0.252.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
