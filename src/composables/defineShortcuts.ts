@@ -1,13 +1,13 @@
 import { useEventListener } from "@vueuse/core";
 import { useShortcuts } from "./useShortcuts";
 
-// Define a type for the modifier keys
-type Modifier = "meta" | "ctrl" | "shift" | "alt";
-
 // Define a type for the shortcut keys
 export type ShortcutKeys = {
   key: string;
-  modifier?: Modifier;
+  shiftKey?: boolean;
+  ctrlKey?: boolean;
+  altKey?: boolean;
+  metaKey?: boolean;
 };
 
 /**
@@ -21,13 +21,12 @@ function verifyShortcutConfig(
   handler: (e: KeyboardEvent) => void
 ) {
   const { macOS } = useShortcuts();
-
-  let modifier = combination.modifier?.toLowerCase();
   let key = combination.key.toLowerCase();
 
   const empty = {
     _combination: null,
     _handler: null,
+    hasModifier: false,
   };
 
   const alphabeticalKey = /^[a-z]{1}$/i.test(combination.key);
@@ -39,23 +38,16 @@ function verifyShortcutConfig(
     return empty;
   }
 
-  if (modifier === "shift" && !alphabeticalKey) {
+  if (combination.shiftKey && !alphabeticalKey) {
     console.warn(
       "[defineShortcuts] Shift key can only be used with alphabetical keys"
     );
     return empty;
   }
 
-  if (modifier && !["meta", "ctrl", "shift", "alt"].includes(modifier)) {
-    console.warn(
-      "[defineShortcuts] Modifier must be one of: meta, ctrl, shift, alt"
-    );
-
-    return empty;
-  }
-
-  if (modifier === "meta" && !macOS.value) {
-    modifier = "ctrl";
+  if (combination.metaKey && !macOS.value) {
+    combination.metaKey = false;
+    combination.ctrlKey = true;
   }
 
   if (key === "esc") {
@@ -67,8 +59,13 @@ function verifyShortcutConfig(
   }
 
   return {
-    _combination: { key, modifier },
+    _combination: { ...combination, key },
     _handler: handler,
+    hasModifier:
+      combination.shiftKey ||
+      combination.ctrlKey ||
+      combination.altKey ||
+      combination.metaKey,
   };
 }
 
@@ -81,35 +78,38 @@ export const defineShortcuts = (
   combination: ShortcutKeys,
   handler: (e: KeyboardEvent) => void
 ) => {
-  const { usingInput } = useShortcuts();
-
-  const { _combination, _handler } = verifyShortcutConfig(combination, handler);
+  const { _combination, _handler, hasModifier } = verifyShortcutConfig(
+    combination,
+    handler
+  );
   if (!_combination || !_handler) return;
 
   const onKeyDown = (e: KeyboardEvent) => {
+    const { usingInput } = useShortcuts();
+
     if (!e.key) return;
 
-    if (!_combination.modifier && usingInput.value) {
+    if (!hasModifier && usingInput.value) {
       // disable shortcuts when input is focused
       return;
     }
 
-    if (_combination.modifier) {
-      if (e.metaKey && _combination.modifier !== "meta") return;
-      if (e.ctrlKey && _combination.modifier !== "ctrl") return;
-      if (e.altKey && _combination.modifier !== "alt") return;
-      if (e.shiftKey && _combination.modifier !== "shift") return;
+    if (hasModifier) {
+      if (e.metaKey && !_combination.metaKey) return;
+      if (e.ctrlKey && !_combination.ctrlKey) return;
+      if (e.altKey && !_combination.altKey) return;
+      if (e.shiftKey && !_combination.shiftKey) return;
 
       if (e.key.toLowerCase() === _combination.key) {
         handler(e);
       }
-      return;
-    }
-
-    // no meta key should be accepted
-    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
-    if (e.key === _combination.key) {
-      handler(e);
+    } else {
+      // no meta key should be accepted
+      console.log(e.metaKey, e.ctrlKey, e.altKey, e.shiftKey);
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+      if (e.key === _combination.key) {
+        handler(e);
+      }
     }
   };
 

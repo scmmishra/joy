@@ -15,6 +15,7 @@ export const _useShortcuts = () => {
   const metaSymbol = ref(" ");
 
   const activeElement = useActiveElement();
+  console.log(activeElement);
   const usingInput = computed(() => {
     const usingInput = !!(
       activeElement.value?.tagName === "INPUT" ||

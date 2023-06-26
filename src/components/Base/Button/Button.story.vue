@@ -15,16 +15,16 @@ const state = reactive<ButtonProps>({
   elevated: false,
   shortcut: {
     key: "G",
-    modifier: "shift",
+    shiftKey: true,
   },
 });
 
 const styleOptions: ButtonColors[] = [
   "primary",
-  "secondary",
-  "warning",
-  "danger",
-  "success",
+  // "secondary",
+  // "warning",
+  // "danger",
+  // "success",
 ];
 
 const variantOptions: Record<ButtonVariants, string> = {
