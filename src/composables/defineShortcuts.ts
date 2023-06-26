@@ -1,13 +1,21 @@
 import { useEventListener } from "@vueuse/core";
 import { useShortcuts } from "./useShortcuts";
 
+// Define a type for the modifier keys
 type Modifier = "meta" | "ctrl" | "shift" | "alt";
 
+// Define a type for the shortcut keys
 export type ShortcutKeys = {
   key: string;
   modifier?: Modifier;
 };
 
+/**
+ * Verify the shortcut configuration and return the combination and handler.
+ * @param combination - The shortcut combination to verify.
+ * @param handler - The function to execute when the shortcut is triggered.
+ * @returns An object containing the combination and handler.
+ */
 function verifyShortcutConfig(
   combination: ShortcutKeys,
   handler: (e: KeyboardEvent) => void
@@ -56,6 +64,11 @@ function verifyShortcutConfig(
   };
 }
 
+/**
+ * Define a keyboard shortcut.
+ * @param combination - The shortcut combination to define.
+ * @param handler - The function to execute when the shortcut is triggered.
+ */
 export const defineShortcuts = (
   combination: ShortcutKeys,
   handler: (e: KeyboardEvent) => void
