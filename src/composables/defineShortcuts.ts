@@ -58,6 +58,14 @@ function verifyShortcutConfig(
     modifier = "ctrl";
   }
 
+  if (key === "esc") {
+    key = "escape";
+  }
+
+  if (["del", "delete"].includes(key)) {
+    key = "backspace";
+  }
+
   return {
     _combination: { key, modifier },
     _handler: handler,
@@ -80,6 +88,7 @@ export const defineShortcuts = (
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (!e.key) return;
+    console.log(e.key.toLowerCase());
 
     if (!_combination.modifier && usingInput.value) {
       // disable shortcuts when input is focused
@@ -91,7 +100,7 @@ export const defineShortcuts = (
       if (e.ctrlKey && _combination.modifier !== "ctrl") return;
       if (e.altKey && _combination.modifier !== "alt") return;
       if (e.shiftKey && _combination.modifier !== "shift") return;
-      console.log(e.shiftKey, _combination.modifier, e.key, _combination.key);
+
       if (e.key.toLowerCase() === _combination.key) {
         handler(e);
       }
