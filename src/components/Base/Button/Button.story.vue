@@ -13,6 +13,10 @@ const state = reactive<ButtonProps>({
   icon: "Smile",
   trailingIcon: false,
   elevated: false,
+  shortcut: {
+    key: "G",
+    modifier: "shift",
+  },
 });
 
 const styleOptions: ButtonColors[] = [
@@ -68,18 +72,7 @@ function updateClicked() {
 
     <Variant v-for="style in styleOptions" :title="style" autoPropsDisabled>
       <div class="flex items-center justify-center p-5">
-        <Button
-          :size="state.size"
-          :color="style"
-          :disabled="state.disabled"
-          :fullWidth="state.fullWidth"
-          :loading="state.loading"
-          :icon="state.icon"
-          :trailingIcon="state.trailingIcon"
-          :elevated="state.elevated"
-          :variant="state.variant"
-          @click="updateClicked"
-        >
+        <Button v-bind="state" :color="style" @click="updateClicked">
           {{ state.text }}
         </Button>
       </div>

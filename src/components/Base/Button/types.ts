@@ -1,3 +1,4 @@
+import { ShortcutKeys } from "../../../composables/defineShortcuts";
 import { UIColors, UIVariants } from "../../colors";
 import { IconOptions } from "../Icon/types";
 
@@ -17,4 +18,5 @@ export interface ButtonProps {
   icon?: IconOptions;
   trailingIcon?: boolean;
   elevated?: boolean;
+  shortcut?: ShortcutKeys;
 }

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import Icon from "../Icon/Icon.vue";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import type { ButtonProps } from "./types";
 import useColors from "../../../composables/useColors";
+import { defineShortcuts } from "../../../composables/defineShortcuts";
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: "medium",
@@ -15,6 +16,18 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   trailingIcon: false,
   icon: undefined,
   elevated: false,
+});
+
+const emit = defineEmits<{
+  click: [];
+}>();
+
+onMounted(() => {
+  if (props.shortcut) {
+    defineShortcuts(props.shortcut, () => {
+      emit("click");
+    });
+  }
 });
 
 const isLoading = computed(() => props.loading && !props.disabled);
