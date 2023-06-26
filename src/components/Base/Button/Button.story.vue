@@ -21,10 +21,10 @@ const state = reactive<ButtonProps>({
 
 const styleOptions: ButtonColors[] = [
   "primary",
-  // "secondary",
-  // "warning",
-  // "danger",
-  // "success",
+  "secondary",
+  "warning",
+  "danger",
+  "success",
 ];
 
 const variantOptions: Record<ButtonVariants, string> = {
